@@ -74,6 +74,8 @@
     width: 640px;
     margin: 0px auto;
     position: relative;
+    display: flex;
+    align-items: center;
 
     @keyframes PulseCaret {
         12% {
@@ -86,12 +88,8 @@
     }
 
     h1 {
-        width: calc(100% - 172px);
-        position: absolute;
-        top: 0px;
-        margin: 0px;
+        margin: 0px 0px 0px 16px;
         padding: 0px;
-        left: 172px;
         font-size: $xxlarge;
         font-weight: 900;
         line-height: 1.15em;
