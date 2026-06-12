@@ -94,27 +94,14 @@
         left: 172px;
         font-size: $xxlarge;
         font-weight: 900;
-        height: 156px;
-        line-height: 1em;
+        line-height: 1.15em;
 
         span {
-            word-break: nowrap;
-            position: absolute;
-            display: inline-block;
-            width: 100%;
-        }
-
-        span:first-child {
-            top: -6px;
+            display: block;
         }
 
         span:nth-child(2) {
-            top: 52px;
             color: $red;
-        }
-
-        span:last-child {
-            top: 110px;
         }
     }
 

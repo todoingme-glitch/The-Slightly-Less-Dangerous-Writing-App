@@ -68,7 +68,7 @@ export default class WriteButton extends React.Component {
           <div className="tabs">
               <span className="minutes" onClick={() => this.setType("minutes")}>Minutes</span>
               &nbsp;/&nbsp;
-              <span className="words" onClick={() => this.setType("words")}>Words</span>
+              <span className="words" onClick={() => this.setType("words")}>Characters</span>
           </div>
           <div className="radios">
             { this.renderOptions() }
@@ -110,6 +110,6 @@ WriteButton.defaultProps = {
   hidePanel: false,
   limits: {
     minutes: [3, 5, 10, 15, 20, 30, 60],
-    words: [150, 250, 500, 750, 1667]
+    words: [500, 1000, 2000, 3000, 5000]
   }
 }

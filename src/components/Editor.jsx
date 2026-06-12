@@ -11,6 +11,9 @@ export default class Editor extends Component {
     this.onScroll = this.onScroll.bind(this);
     this.toggleBrief = this.toggleBrief.bind(this);
     this.onBriefChange = this.onBriefChange.bind(this);
+    this.onBriefFocus = this.onBriefFocus.bind(this);
+    this.onBriefBlur = this.onBriefBlur.bind(this);
+    this.briefInput = React.createRef();
     this.input = React.createRef();
     this.wrapper = React.createRef();
     this.state = {
@@ -21,6 +24,7 @@ export default class Editor extends Component {
       timerId: null,
       brief: "",
       briefExpanded: true,
+      briefEditing: false,
     }
 
     this.invalid_keys = [
@@ -85,11 +89,19 @@ export default class Editor extends Component {
   }
 
   toggleBrief() {
-    this.setState(s => ({ briefExpanded: !s.briefExpanded }));
+    this.setState(s => ({ briefExpanded: !s.briefExpanded, briefEditing: false }));
   }
 
   onBriefChange(event) {
     this.setState({ brief: event.target.value });
+  }
+
+  onBriefFocus() {
+    this.setState({ briefEditing: true });
+  }
+
+  onBriefBlur() {
+    this.setState({ briefEditing: false });
   }
 
   reset() {
@@ -97,7 +109,7 @@ export default class Editor extends Component {
   }
 
   render() {
-    const { brief, briefExpanded } = this.state;
+    const { brief, briefExpanded, briefEditing } = this.state;
     return (
       <AppContext.Consumer>{ ({danger, hardcore, won}) =>
         <div
@@ -115,13 +127,25 @@ export default class Editor extends Component {
               {briefExpanded ? '▲ Scene Brief' : '▼ Scene Brief'}
             </button>
             {briefExpanded && (
-              <textarea
-                className="scene-brief-input"
-                placeholder="Paste your scene outline or goal here..."
-                value={brief}
-                onChange={this.onBriefChange}
-                onKeyDown={e => e.stopPropagation()}
-              />
+              briefEditing ? (
+                <textarea
+                  ref={this.briefInput}
+                  className="scene-brief-input"
+                  placeholder="Paste your scene outline or goal here..."
+                  value={brief}
+                  onChange={this.onBriefChange}
+                  onKeyDown={e => e.stopPropagation()}
+                  onBlur={this.onBriefBlur}
+                  autoFocus
+                />
+              ) : (
+                <div
+                  className={classNames('scene-brief-display', { empty: !brief })}
+                  onClick={this.onBriefFocus}
+                >
+                  {brief || 'Paste your scene outline or goal here...'}
+                </div>
+              )
             )}
           </div>
           <textarea

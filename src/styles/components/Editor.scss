@@ -1,13 +1,9 @@
 .scene-brief
     {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background: rgba(255,255,255,0.97);
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    padding: 0 40px;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    padding: 0;
+    margin-bottom: 12px;
 
     &-toggle
         {
@@ -29,7 +25,7 @@
         width: 100%;
         max-height: 120px;
         min-height: 56px;
-        resize: vertical;
+        resize: none;
         border: none;
         outline: none;
         background: transparent;
@@ -43,21 +39,37 @@
         &::-webkit-scrollbar { display: none; }
         }
 
-    &.collapsed { padding-bottom: 0; }
+    &-display
+        {
+        font-family: Merriweather;
+        font-size: 10pt;
+        color: $blue;
+        line-height: 1.6;
+        padding: 0 0 10px 0;
+        min-height: 40px;
+        cursor: text;
+        white-space: pre-wrap;
+        word-break: break-word;
+        &.empty { color: $off-off-white; }
+        }
+
+    &.collapsed { border-bottom: none; margin-bottom: 0; }
     }
 
 .app.night-mode .scene-brief
     {
-    background: rgba(26,32,38,0.97);
     border-bottom-color: rgba(255,255,255,0.08);
     &-toggle { color: $light-grey; }
     &-input { color: mix($white, $blue, 50%); }
+    &-display { color: mix($white, $blue, 50%); }
     }
 
 .editor, .app.night-mode .editor
     {
     height: calc(100% - 160px);
     margin-top: 80px;
+    display: flex;
+    flex-direction: column;
     position: relative;
     line-height: 1.65;
     font-size: 14pt;
@@ -68,7 +80,7 @@
         overflow: auto;
         width: 100%;
         padding: 0;
-        height: 100%;
+        flex: 1;
         margin: 0px;
         border: none;
         outline: none;
